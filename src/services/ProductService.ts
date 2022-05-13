@@ -8,4 +8,9 @@ export default class ProductService {
     const products = await this.model.getAll();
     return products;
   };
+
+  public getOne = async (id: number): Promise<IProduct> => {
+    const product = await this.model.getOne(id);
+    return product;
+  };
 }
