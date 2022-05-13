@@ -10,7 +10,8 @@ export default class ProductModel {
   };
 
   public getOne = async (id: number): Promise<IProduct> => {
-    const result = await conn.execute('SELECT * FROM Trybesmith.Products WHERE id = ?', [id]);
+    const result = await conn
+      .execute('SELECT name, amount FROM Trybesmith.Products WHERE id = ?', [id]);
     const [rows] = result;
     const [product] = rows as IProduct[];
     return product;
