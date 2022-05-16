@@ -1,8 +1,8 @@
-import UserModel from '../models/ProductModel';
+import ProductModel from '../models/ProductModel';
 import IProduct from '../interfaces/product.interface';
 
 export default class ProductService {
-  public model = new UserModel();
+  public model = new ProductModel();
 
   public getAll = async (): Promise<IProduct[]> => {
     const products = await this.model.getAll();
@@ -14,8 +14,8 @@ export default class ProductService {
     return product;
   };
 
-  public create = async (user: IProduct): Promise<IProduct> => {
-    const { name, amount } = user;
+  public create = async (product: IProduct): Promise<IProduct> => {
+    const { name, amount } = product;
     const newProduct = await this.model.create({ name, amount });
     return newProduct;
   };
