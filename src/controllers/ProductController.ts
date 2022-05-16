@@ -21,4 +21,21 @@ export default class ProductController {
 
     return res.status(StatusCodes.OK).json(product);
   };
+
+  public create = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<Response | void> => {
+    const { name, amount } = req.body;
+    try {
+      const product = await this.service.create({ name, amount });
+      return res.status(StatusCodes.CREATED).json(product);
+    } catch (error: unknown) {
+      if (error instanceof Error && error.message.includes('Product already exists')) {
+        return res.status(StatusCodes.CONFLICT).json({ message: error.message });
+      }
+      next(error);
+    }  
+  };
 }
