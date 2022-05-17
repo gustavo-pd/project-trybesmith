@@ -10,13 +10,13 @@ type User = {
 };
 
 export default class AuthUser {
-  private SECRET = 'trybesmith';
+  private SECRET = '123456';
 
   private config: SignOptions = {
-    expiresIn: '7d',
+    expiresIn: '15d',
   };
 
-  public generateToken = (user: User): string => {
+  public tokenGen = (user: User): string => {
     const { id, username, password } = user;
     const token = jwt.sign({ id, username, password }, this.SECRET, this.config);
 

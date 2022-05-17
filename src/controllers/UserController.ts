@@ -1,9 +1,9 @@
 import { StatusCodes } from 'http-status-codes';
 import { Request, Response, NextFunction } from 'express';
 import UserService from '../services/UserService';
-import AuthUser from '../auth/AuthUser';
+import PostUser from '../auth/PostUser';
 
-const auth = new AuthUser();
+const auth = new PostUser();
 
 export default class ProductController {
   public service = new UserService();
@@ -16,7 +16,7 @@ export default class ProductController {
     const { username, classe, level, password } = req.body;
     try {
       const user = await this.service.create(username, classe, level, password);
-      const token = auth.generateToken(user);
+      const token = auth.tokenGen(user);
       return res.status(StatusCodes.CREATED).json({ token });
     } catch (error: unknown) {
       if (error instanceof Error && error.message.includes('User already exists')) {
